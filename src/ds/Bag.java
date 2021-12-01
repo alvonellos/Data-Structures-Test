@@ -1,15 +1,6 @@
 package ds;
-/******************************************************************************
-*  Compilation:  javac Bag.java
-*  Execution:    java Bag < input.txt
-*  Dependencies: StdIn.java StdOut.java
-*
-*  A generic bag or multiset, implemented using a singly linked list.
-*
-******************************************************************************/
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
 *  The {@code Bag} class represents a bag (or multiset) of 
@@ -26,16 +17,9 @@ import java.util.NoSuchElementException;
 *
 *  @param <Item> the generic type of an item in this bag
 */
-public class Bag<Item> implements Iterable<Item> {
-   private Node<Item> first;    // beginning of bag
+public class Bag<T extends Comparable<T>> implements Iterable<T> {
+   private Node<T> first;    // beginning of bag
    private int n;               // number of elements in bag
-
-   // helper linked list class
-   private static class Node<Item> {
-       private Item item;
-       private Node<Item> next;
-   }
-
    /**
     * Initializes an empty bag.
     */
@@ -68,11 +52,11 @@ public class Bag<Item> implements Iterable<Item> {
     *
     * @param  item the item to add to this bag
     */
-   public void add(Item item) {
-       Node<Item> oldfirst = first;
-       first = new Node<Item>();
-       first.item = item;
-       first.next = oldfirst;
+   public void add(T datum) {
+       Node<T> oldfirst = first;
+       first = new Node<T>();
+       first.setDatum(datum);
+       first.setNext(oldfirst);;
        n++;
    }
 
@@ -82,25 +66,25 @@ public class Bag<Item> implements Iterable<Item> {
     *
     * @return an iterator that iterates over the items in this bag in arbitrary order
     */
-   public Iterator<Item> iterator()  {
+   public Iterator<T> iterator()  {
        return new LinkedIterator(first);  
    }
 
    // an iterator, doesn't implement remove() since it's optional
-   private class LinkedIterator implements Iterator<Item> {
-       private Node<Item> current;
+   private class LinkedIterator implements Iterator<T> {
+       private Node<T> current;
 
-       public LinkedIterator(Node<Item> first) {
+       public LinkedIterator(Node<T> first) {
            current = first;
        }
 
        public boolean hasNext()  { return current != null;                     }
        public void remove()      { throw new UnsupportedOperationException();  }
 
-       public Item next() {
+       public T next() {
            if (!hasNext()) throw new NoSuchElementException();
-           Item item = current.item;
-           current = current.next; 
+           T item = current.getDatum();
+           current = current.getNext(); 
            return item;
        }
    }
@@ -110,18 +94,15 @@ public class Bag<Item> implements Iterable<Item> {
     *
     * @param args the command-line arguments
     */
-   /**
    public static void main(String[] args) {
        Bag<String> bag = new Bag<String>();
-       while (!StdIn.isEmpty()) {
-           String item = StdIn.readString();
-           bag.add(item);
-       }
-
-       StdOut.println("size of bag = " + bag.size());
+       bag.add("1");
+       bag.add("2");
+       bag.add("3");
+       System.out.println("size of bag = " + bag.size());
        for (String s : bag) {
-           StdOut.println(s);
+           System.out.println(s);
        }
-   }*/
+   }
 
 }
