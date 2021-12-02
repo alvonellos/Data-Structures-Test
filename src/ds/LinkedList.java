@@ -11,9 +11,9 @@ import java.util.Iterator;
  */
 public class LinkedList<T extends Comparable<T>> implements Iterable<T>{
 	
-	private final static boolean DEBUG = true;      // Enables / disables debug messages. 
-	private Node<T> head; // Head node. 
-	private int     size =0; //Start is 0 in it, but otherwise it's 1
+	protected final static boolean DEBUG = true;      // Enables / disables debug messages. 
+	protected Node<T> head; // Head node. 
+	protected int     size =0; //Start is 0 in it, but otherwise it's 1
 	
 	/**
 	 * A simple iterator implementation for this class
@@ -22,7 +22,7 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T>{
 	 * @param <T>
 	 */
 	@SuppressWarnings("hiding")
-	class LLIterator<T extends Comparable<T>> implements Iterator<T> {
+	protected class LLIterator<T extends Comparable<T>> implements Iterator<T> {
 		private Node<?> cursor;
 		
 		/**
@@ -30,7 +30,7 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T>{
 		 * @param obj
 		 */
 		public LLIterator(LinkedList<?> obj) {
-		        this.cursor = obj.head;
+		        this.cursor = obj.head;   
 		}
 		
 		/**
@@ -216,7 +216,7 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T>{
 	 * @param o
 	 * @return
 	 */
-    private String addrString(Object o) {
+    protected String addrString(Object o) {
 	    return o == null ? "null" : o.getClass().getName() + "@" + 
 	           Integer.toHexString(System.identityHashCode(o));
     }
@@ -225,7 +225,7 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T>{
      * Debug function
      * @param message
      */
-	private static void debug(String message) { 
+	protected static void debug(String message) { 
 		if(DEBUG) { 
 			System.err.println("Message: " + message); 
 		}	
