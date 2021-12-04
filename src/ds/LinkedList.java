@@ -125,6 +125,8 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T>{
 	public void remove(T key) { 
 		Node<T> temp = head, prev = null;
 		 
+		if(size <= 1) { this.clear(); }
+		
         // If head node itself holds the key to be deleted
         if (temp != null && temp.getDatum().equals(key)) {
             head = temp.getNext(); // Changed head
@@ -308,6 +310,14 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T>{
 		myLL.clear();
 		debug("after clearing size: " + myLL.size());
 		myLL.Traversal();
+		
+		debug("create one and then remove just one");
+		myLL.add("1000");
+		myLL.Traversal();
+		myLL.remove("1000");
+		debug("myLL: " + myLL.head);
+		
+		
 		
     }
 }
